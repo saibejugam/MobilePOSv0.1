@@ -1,0 +1,93 @@
+
+<style>
+<!--
+.button.button-icon.input-button {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  color: #bbb;
+}
+
+-->
+</style>
+
+<ion-view view-title="InvoiceManagement"  ng-controller="invoiceMainCtrl">
+
+	<ion-header-bar class="bar-royal">
+	  <button class="button button-icon" ng-click="toggleNav()">
+	    		<i class="icon ion-navicon"></i>
+	  </button>
+	   <h1 class="title">Invoice Management</h1>
+	  <button class="button button-icon" ng-click= "openAddNewInvoiceForm()"><i class="icon ion-plus-circled"></i></button>
+  	</ion-header-bar>
+  	
+		<ion-header-bar class="bar-light bar-subheader"> 
+  	<div id="searchSupplierDiv" class="item item-input">
+  	 <i class="icon ion-search placeholder-icon"></i>
+  	<input id="searchSupplierCtrl" type="search"
+             placeholder="Supplier Name"
+             ng-model="searchSupplier"
+             ng-focus="searchFocused = true"
+             ng-blur="searchFocused = false"
+             ng-change="lookupSupplier();"> 
+              
+              <button ng-if="searchSupplier.length"
+              class="button button-icon ion-android-close  input-button"
+              ng-click="clearSearch('supplierSearchCtrl')">
+              </button>
+
+
+	  </div>
+		</ion-header-bar>
+
+  	<ion-header-bar class="bar-light bar-subheader"> 
+		<div id="invoiceSearchDiv" class="item item-input item-select">
+  	 <i class="icon ion-search placeholder-icon"></i>
+			<input id="invoiceNoSearchCtrl" type="text"
+             placeholder="Search"
+             ng-model="searchKey"
+             ng-keyup="$event.keyCode == 13 && searchInvoiceDetails(this)">
+        
+              <button ng-if="searchInvoice.length"
+              class="button button-icon ion-android-close  input-button"
+              ng-click="clearSearch('invoiceSearchCtrl')">	
+							</button>		
+							<select ng-change="searchOptionSelect()" ng-model="selectObj">
+								<option value="0" >Invoice No</option>
+								<option value="1">Batch No</option>
+								<option value="2">Tax Invoice No</option>
+							</select>
+		</div>
+		</ion-header-bar>
+
+
+    <ion-content class="padding" position-bars-and-content>
+		  	<div class="list" >
+		    <ion-list show-delete="shouldShowDelete"
+          			show-reorder="shouldShowReorder">
+		      <ion-item ng-repeat="supplier in suppliers" ng-click="showSupplierInvoices(supplier, $index)" class="item-remove-animate">
+		        {{supplier.suppliername}}
+		      </ion-item>
+		    </ion-list>
+
+		   </div>
+
+			 <div class="list list-inset" >
+				 	 <button class="button-icon ion-funnel" ng-if="invoices.length" 
+					 		ng-click="openDatePicker()"> Filter by Supplier Date</button>
+					<ion-list show-delete="shouldShowDelete"
+          			show-reorder="shouldShowReorder">
+		      	<ion-item ng-repeat="invoice in invoices | filter:selectedDate" ng-click="showInvoiceDetails(invoice.invoiceno)"  class="item-remove-animate">
+							<div class="item item-divider">
+									Invoice # {{invoice.invoiceno}}, Supplier: {{invoice.suppliername}} 
+							</div>
+							<div class="item">
+    							Invoice Date: {{invoice.invoicedate}} <br>
+									Invoice Value: {{invoice.total_invoice_value}}
+  						</div>
+						</ion-item>
+		    	</ion-list>
+				</div>
+	</ion-content>
+
+</ion-view>

@@ -1,0 +1,87 @@
+
+<style>
+<!--
+.button.button-icon.input-button {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  color: #bbb;
+}
+
+-->
+</style>
+
+<ion-view view-title="invoice-details"  ng-controller="invoiceMainCtrl" cache-view="false">
+
+	<ion-header-bar class="bar-royal">
+	  <button class="button button-icon" ng-click="toggleNav()">
+	    		<i class="icon ion-navicon"></i>
+	  </button>
+	   <h1 class="title">Invoice Details - {{invoiceDtl.taxinvoiceno}}</h1>
+		 <button class="button button-icon" ng-click= "openAddNewInvoiceForm()"><i class="icon ion-plus-circled"></i></button>
+	  </ion-header-bar>
+  	<ion-content class="card"> 
+  		  <div class="item item-divider" >
+						<div class="row responsive-sm">
+								<div class="col col-50">
+									Supplier Name: {{invoiceDtl.suppliername}} 
+								</div>
+								<div class="col">
+									Invoice No.: {{invoiceDtl.invoiceno}}
+								</div>
+						</div>		
+						<div class="row responsive-sm">
+							<div class="col col-50">
+								Invoice Date: {{invoiceDtl.invoicedate}} 
+							</div>
+							<div class="col">
+								Total Invoice Value:  {{invoiceDtl.total_invoice_value}} INR 
+							</div>
+						</div>		
+				</div>
+				
+					<ion-list show-delete="shouldShowDelete"
+          			show-reorder="shouldShowReorder"> 
+		      	<ion-item ng-repeat="invoiceitem in invoiceDtl.invoiceitems | filter:batchno" class="item-remove-animate">
+							<div class="card">
+								<div class="row responsive-sm">
+									<div class="col col-50">
+										{{invoiceitem.drugname}}, {{invoiceitem.drugtype}}
+									</div>
+									<div class="col">
+									  &nbsp;
+									</div>
+								</div>
+								<div class="row responsive-sm">
+									<div class="col col-33">
+										Batch# {{invoiceitem.batchno}}
+									</div>	
+									<div class="col">
+										Qty: {{invoiceitem.purchase_qty}}
+									</div>
+								</div>
+								<div class="row responsive-sm">
+									<div class="col col-33">	
+										Manufacturer: {{invoiceitem.mfg}}
+									</div>
+									<div class="col">	
+										Total Price: {{invoiceitem.total_price}}
+									</div>	
+							</div>
+								<div class="row responsive-sm">
+									<div class="col col-33">
+										MRP: {{invoiceitem.mrp}}
+									</div>
+									<div class="col">
+										Unit Price: {{invoiceitem.unitprice}}
+									</div>	
+									<div class="col">
+										VAT: {{invoiceitem.vat}}
+									</div>
+								</div>
+						</ion-item>
+		    	</ion-list>
+
+	</ion-content>
+
+</ion-view>

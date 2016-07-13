@@ -1,0 +1,73 @@
+<div class="modal" >
+<form ng-submit="addNewDrug(drug)">
+	<!-- Modal header bar -->
+	<ion-header-bar class="bar-secondary">
+	<button class="button button-clear button-positive" type="submit">Save</button>
+	<h1 class="title">Add new drug</h1>
+	<button class="button button-clear button-positive" type="button"
+		ng-click="closeAddNewDrugForm()">Cancel</button>
+	</ion-header-bar>
+
+	<!-- Modal content area -->
+	<ion-content>
+	
+		<div class="list">
+			<label class="item item-input item-select">
+				<div class="input-label">Drug type</div> <select ng-model="drug.type">
+					<option>Tablet</option>
+					<option selected>Bottle</option>
+					<option>Sachet</option>
+			</select>
+			</label> <label class="item item-input"> <span class="input-label">Drug name</span>
+				<input type="text" ng-model="drug.name">
+			</label> 
+			<label class="item item-input item-select">
+				<div class="input-label">Package type</div> <select>
+					<option>Strip</option>
+					<option selected>Box</option>
+			</select>
+			</label>
+			<label class="item item-input"> <span class="input-label">Manufacturer</span>
+				<input type="text">
+			</label> 
+			<div class="item item-toggle "> <span class="input-label">Schedule
+					H (need prescription?)</span> <label class="toggle toggle-assertive">
+					<input type="checkbox">
+					<div class="track">
+						<div class="handle"></div>
+					</div>
+			</label>
+			</div> <label class="item item-input"> <span class="input-label">VAT %</span>
+				<input type="number">
+			</label>
+			<label class="item item-input"> <span class="input-label">Rack position</span>
+				<input type="text">
+			</label>
+			<label class="item item-input"> <span class="input-label">Quality in store</span>
+				<input type="number">
+			</label>
+			<label class="item item-input"> <span class="input-label">Quality in store</span>
+				<input type="number">
+			</label>
+			<label class="item item-input"> <span class="input-label">Batch number</span>
+				<input type="number">
+			</label>
+			<label class="item item-input"> <span class="input-label">Date of expire</span>
+				<input type="date">
+			</label>
+			<label class="item item-input"> <span class="input-label">Price</span>
+				<input type="number">
+			</label>
+			<label class="item item-input"> <span class="input-label">MRP.</span>
+				<input type="number">
+			</label>
+		</div>
+		<div class="padding">
+			<button type="submit" class="button button-block button-positive">Save
+				drug</button>
+		</div>
+	</form>
+
+	</ion-content>
+
+</div>

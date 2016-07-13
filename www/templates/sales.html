@@ -1,80 +1,9 @@
-<ion-view style="" id="page3" title="Sales">
-    
-    <ion-side-menus enable-menu-with-back-views="true">
-        <ion-side-menu-content>
-            <ion-nav-bar>
-                <ion-nav-buttons side="left">
-                <!-- Toggle left side menu -->
-                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-                </ion-nav-buttons>
-            </ion-nav-bar>
-            <ion-nav-view></ion-nav-view>
-        </ion-side-menu-content>
-        <ion-side-menu side="left" id="side-menu21">
-            <ion-header-bar class="bar-stable">
-                <div class="title">Menu</div>
-            </ion-header-bar>
-            <ion-content padding="false" class="side-menu-left has-header">
-                <ion-list>
-                    <ion-item>Sales 1</ion-item>
-                    <ion-item>Sales 2</ion-item>
-                    <ion-item>Sales 3</ion-item>
-                    <ion-item>Sales 4</ion-item>
-                </ion-list>
-            </ion-content>
-        </ion-side-menu>
-    </ion-side-menus>
-    
-    <ion-content class="has-header" padding="true">
-        <form style="" class="list">
-            <label style="" name="txtPatientName" class="item item-input">
-                <span class="input-label">Patient Name</span>
-                <input placeholder="" type="text">
-            </label>
-            <label style="" name="txtDoctorName" class="item item-input">
-                <span class="input-label">Doctor's Name</span>
-                <input placeholder="" type="text">
-            </label>
-            <label style="" name="txtReceiptDate" class="item item-input">
-                <span class="input-label">Date</span>
-                <input placeholder="" type="date">
-            </label>
-        </form>
-        <div style="" class="list card">
-            <div class="item item-divider">Medicine</div>
-            <div class="item item-body">
-                <form style="" class="list">
-                    <label style="" name="txtMedicineName" class="item item-input">
-                        <span class="input-label">Name</span>
-                        <input placeholder="" type="text">
-                    </label>
-                    <label style="" name="txtQuantity" class="item item-input">
-                        <span class="input-label">Quantity</span>
-                        <input placeholder="" type="number">
-                    </label>
-                    <label style="" name="txtSchedule" class="item item-input">
-                        <span class="input-label">Schedule</span>
-                        <input placeholder="" type="text">
-                    </label>
-                    <label style="" name="txtManName" class="item item-input">
-                        <span class="input-label">Manu Name</span>
-                        <input placeholder="" type="text">
-                    </label>
-                    <label style="" name="txtBatchNo" class="item item-input">
-                        <span class="input-label">Batch No.</span>
-                        <input placeholder="" type="text">
-                    </label>
-                    <label style="" name="txtExpiryDate" class="item item-input">
-                        <span class="input-label">Expiry Date</span>
-                        <input placeholder="" type="date">
-                    </label>
-                    <label style="" name="txtAmount" class="item item-input">
-                        <span class="input-label">Amount</span>
-                        <input placeholder="" type="text">
-                    </label>
-                </form>
-                <button class="button button-positive  button-block" id="sales-button4">Add</button>
-            </div>
-        </div>
+<ion-view view-title="Home">
+    <ion-content ng-controller="HomeCtrl" class="has-header">
+        <div class="card">
+		  <div class="item item-text-wrap">
+		    Sell some good stuff...actually, sell lot of them!
+		  </div>
+		</div>
     </ion-content>
 </ion-view>

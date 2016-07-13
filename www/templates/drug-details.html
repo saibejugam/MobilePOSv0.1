@@ -1,0 +1,55 @@
+<div class="modal">
+
+	<!-- Modal header bar -->
+	<ion-header-bar class="bar-secondary bar-stable">
+	<h1 class="title">{{drug.drugname}}</h1>
+	<button class="button button-clear button-positive"
+		ng-click="closeDrugDetails()">Cancel</button>
+	</ion-header-bar>
+
+	<!-- Modal content area -->
+	<ion-content>
+
+	<div class="list">
+		<div class="item">
+			Drug type <span class="item-note"> {{drug.drugtype}} </span>
+		</div>
+		<div class="item">
+			Package type <span class="item-note"> {{drug.packageType}} </span>
+		</div> 
+		<div class="item">Manufacturer <span class="item-note"> {{drug.mfgcode}} </span>
+		</div> 
+		<div class="item"> Drug Schedule <span class="item-note">{{drug.scheduledrug}}</span>
+		</div> 
+		<div class="item"> Rack position <span class="item-note"> {{drug.rackposition}} </span>
+		</div>
+		
+		<!-- per batch related stuff...TBD -->
+		
+		<ion-list show-delete="shouldShowDelete"
+          			show-reorder="shouldShowReorder"
+          			can-swipe="listCanSwipe">
+
+		      <ion-item ng-repeat="batch in drug.batches"  class="item-remove-animate card">
+					<div class="item"> Batch
+					number <span class="item-note"> {{batch.batchno}} </span>
+					</div> 
+					<div class="item">MRP<span class="item-note">{{batch.mrp}}</span>
+					</div>		       
+					<div class="item">Unit Price <span class="item-note"> {{batch.unitprice}} </span>
+					</div> 
+					<div class="item">VAT <span class="item-note">{{batch.vat}}</span>
+					</div> 
+					<div class="item "> Quantity in store
+							in store:<span class="item-note"> {{batch.availableqty}} </span>
+					</div> 
+					<div class="item">Expiry date: <span class="item-note"> {{batch.expirydate}} </span>
+					</div> 
+		      </ion-item>
+
+		 </ion-list>
+	</div>
+
+	</ion-content>
+
+</div>
