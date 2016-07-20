@@ -29,11 +29,11 @@
              ng-model="searchSupplier"
              ng-focus="searchFocused = true"
              ng-blur="searchFocused = false"
-             ng-change="lookupSupplier();"> 
+             ng-keyup="$event.keyCode == 13 && lookupSupplier();"> 
               
               <button ng-if="searchSupplier.length"
               class="button button-icon ion-android-close  input-button"
-              ng-click="clearSearch('supplierSearchCtrl')">
+              ng-click="clearSupplierSearch()">
               </button>
 
 
@@ -50,12 +50,13 @@
         
               <button ng-if="searchInvoice.length"
               class="button button-icon ion-android-close  input-button"
-              ng-click="clearSearch('invoiceSearchCtrl')">	
+              ng-click="clearSecondarySearch()">	
 							</button>		
 							<select ng-change="searchOptionSelect()" ng-model="selectObj">
 								<option value="0" >Invoice No</option>
 								<option value="1">Batch No</option>
 								<option value="2">Tax Invoice No</option>
+								<option value="3">Invoice Date</option>
 							</select>
 		</div>
 		</ion-header-bar>
@@ -74,7 +75,7 @@
 
 			 <div class="list list-inset" >
 				 	 <button class="button-icon ion-funnel" ng-if="invoices.length" 
-					 		ng-click="openDatePicker()"> Filter by Supplier Date</button>
+					 		ng-click="openDatePicker()"> Filter by Invoice Date</button>
 					<ion-list show-delete="shouldShowDelete"
           			show-reorder="shouldShowReorder">
 		      	<ion-item ng-repeat="invoice in invoices | filter:selectedDate" ng-click="showInvoiceDetails(invoice.invoiceno)"  class="item-remove-animate">

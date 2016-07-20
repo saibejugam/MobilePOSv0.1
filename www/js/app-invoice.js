@@ -127,10 +127,20 @@ angular.module('ionicApp.Invoice', ['ionic','ui.router','ionic-datepicker'])
 	        });
 			
 		},
+
+		showInvoicesByInvoiceDate: function(key, callback) {
+			var url = "https://qshc2lp143.execute-api.us-west-2.amazonaws.com/invoice/invoice/";
+			$http.get(url+"?invoicedate="+key).
+	        success(function(data) {
+	        	console.log("Invoice details results:"+JSON.stringify(data));
+	        	callback(angular.fromJson(JSON.stringify(data)));
+	        });
+			
+		},
 	}
 })
 
-.controller('invoiceDtlCtrl', function($scope, $ionicModal, $state, $stateParams, invoiceService, $ionicListDelegate){
+.controller('invoiceDtlCtrl', function($scope,$ionicHistory, $ionicModal, $state, $stateParams, invoiceService, $ionicListDelegate){
 	
 	if($stateParams.invoiceno){
 		invoiceService.searchInvoiceByInvoiceNo($stateParams.invoiceno, function(response){
@@ -148,11 +158,16 @@ angular.module('ionicApp.Invoice', ['ionic','ui.router','ionic-datepicker'])
 			$scope.batchno = $stateParams.batchno;
 			console.log("setting scope:" + $scope.invoiceDtl.invoiceno);
 		});	
-	}		
+	}
+
+	//Go back function
+	$scope.myGoBack = function() {
+    	$ionicHistory.goBack();
+  	};	
 })
 
 
-.controller('invoiceMainCtrl', function($scope, $ionicModal, $state, $stateParams, invoiceService, $ionicListDelegate, ionicDatePicker, $filter){
+.controller('invoiceMainCtrl', function($scope, $rootScope, $ionicModal, $state, $stateParams, invoiceService, $ionicListDelegate, ionicDatePicker, $filter){
 	$scope.shouldShowDelete = false;
 	$scope.shouldShowReorder = false;
 	$scope.selectObj = "0";
@@ -174,13 +189,33 @@ angular.module('ionicApp.Invoice', ['ionic','ui.router','ionic-datepicker'])
       templateType: 'popup'       //Optional
     };
 
+	var ipObj2 = {
+      callback: function (val) {  //Mandatory
+        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+		$scope.searchKey = $filter('date')(val, "dd/MM/yyyy");
+      },
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      closeOnSelect: true,       //Optional
+	  dateFormat: 'dd MMMM yyyy',
+      templateType: 'popup'       //Optional
+    };
+
 	$scope.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
 
+	$scope.openDatePickerSearchKey = function(){
+      ionicDatePicker.openDatePicker(ipObj2);
+    };
+
 	//search supplier
 	$scope.lookupSupplier = function(){
-		if($scope.searchSupplier){
+		console.log("length:" + $scope.searchSupplier.length);
+		if($scope.searchSupplier.length>2){
+			$rootScope.invoices = "";
 			invoiceService.searchSupplier($scope.searchSupplier, function(response){
 				$scope.suppliers = response;
 			});	
@@ -192,8 +227,9 @@ angular.module('ionicApp.Invoice', ['ionic','ui.router','ionic-datepicker'])
 	//show invoices for a given supplier
 	$scope.showSupplierInvoices = function(supplier, index){
 		if(supplier){
+			$scope.searchSupplier = supplier.suppliername;
 			invoiceService.showSupplierInvoices(supplier.supplierid, function(response){
-				$scope.invoices = response;
+				$rootScope.invoices = response;
 				$scope.suppliers = [];
 			});	
 		}else{
@@ -213,9 +249,26 @@ angular.module('ionicApp.Invoice', ['ionic','ui.router','ionic-datepicker'])
 			$state.go('invoiceDetails', {invoiceno:$scope.searchKey});
 		}else if($scope.selectObj == 1){
 			$state.go('invoiceDetailsByBatchNo', {batchno:$scope.searchKey});
-		}else{
+		}else if($scope.selectObj == 2){
 			$state.go('invoiceDetailsByTaxInvoiceNo', {taxinvoiceno:$scope.searchKey});
+		}else{
+			invoiceService.showInvoicesByInvoiceDate($scope.searchKey, function(response){
+				$rootScope.invoices = response;
+				$scope.suppliers = [];
+			});	
 		}
+	};
+
+	$scope.searchOptionSelect = function(obj){
+		if($scope.selectObj==3){
+			$scope.openDatePickerSearchKey();
+		}
+	};
+
+	$scope.clearSupplierSearch = function(){
+		$scope.searchSupplier = "";
+		$scope.suppliers = ""; 
+		$rootScope.invoices = "";
 	};
 
 	

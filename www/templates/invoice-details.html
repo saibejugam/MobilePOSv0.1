@@ -14,20 +14,20 @@
 <ion-view view-title="invoice-details"  ng-controller="invoiceMainCtrl" cache-view="false">
 
 	<ion-header-bar class="bar-royal">
-	  <button class="button button-icon" ng-click="toggleNav()">
-	    		<i class="icon ion-navicon"></i>
+	  <button class="button button-icon" ng-click="myGoBack()">
+	    		<i class="ion-arrow-left-c"></i>
 	  </button>
-	   <h1 class="title">Invoice Details - {{invoiceDtl.taxinvoiceno}}</h1>
+	   <h1 class="title">Invoice Details</h1>
 		 <button class="button button-icon" ng-click= "openAddNewInvoiceForm()"><i class="icon ion-plus-circled"></i></button>
 	  </ion-header-bar>
-  	<ion-content class="card"> 
+  	<ion-content class="card" scroll="true" > 
   		  <div class="item item-divider" >
 						<div class="row responsive-sm">
 								<div class="col col-50">
 									Supplier Name: {{invoiceDtl.suppliername}} 
 								</div>
 								<div class="col">
-									Invoice No.: {{invoiceDtl.invoiceno}}
+									Tax Invoice No.:  {{invoiceDtl.taxinvoiceno}}
 								</div>
 						</div>		
 						<div class="row responsive-sm">
